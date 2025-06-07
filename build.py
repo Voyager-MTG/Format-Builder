@@ -3,15 +3,15 @@ from datetime import datetime
 import os, sys, shutil
 
 path = {
-    "egg_hub_export" : "C:/Users/aydin/Documents/repos/Voyager-Indexes/egg-hub-exports/",
-    "trice_export"   : "C:/Users/aydin/Documents/repos/Voyager-Indexes/trice-exports/",
-    "egg_hub"        : "C:/Users/aydin/Documents/repos/Voyager-MTG.github.io",
-    "egg_hub_sets"   : "C:/Users/aydin/Documents/repos/Voyager-MTG.github.io/sets",
-    "trice_sets"     : "C:/Users/aydin/Documents/repos/Voyager-Field-Builder/sets/",
-    "trice_merged"   : "C:/Users/aydin/Documents/repos/Voyager-Field-Builder/export/",
-    "field_builder"  : "C:/Users/aydin/Documents/repos/Voyager-Field-Builder/",
-    "voyager_data"   : "C:/Users/aydin/Documents/repos/Voyager/tricedata/",
-    "voyager"   : "C:/Users/aydin/Documents/repos/Voyager/"
+    "egg_hub_export" : "../Voyager-Indexes/egg-hub-exports/",
+    "trice_export"   : "../Voyager-Indexes/trice-exports/",
+    "egg_hub"        : "../Voyager-MTG.github.io",
+    "egg_hub_sets"   : "../Voyager-MTG.github.io/sets",
+    "trice_sets"     : "../Voyager-Field-Builder/sets/",
+    "trice_merged"   : "../Voyager-Field-Builder/export/",
+    "field_builder"  : "../Voyager-Field-Builder/",
+    "voyager_data"   : "../Voyager/tricedata/",
+    "voyager"        : "../Voyager/"
 }
 
 def onerror(func, path, exc_info):
