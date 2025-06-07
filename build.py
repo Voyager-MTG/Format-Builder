@@ -1,4 +1,5 @@
 from enum import Enum
+from datetime import datetime
 import os, sys, shutil
 
 path = {
@@ -9,7 +10,8 @@ path = {
     "trice_sets"     : "C:/Users/aydin/Documents/repos/Voyager-Field-Builder/sets/",
     "trice_merged"   : "C:/Users/aydin/Documents/repos/Voyager-Field-Builder/export/",
     "field_builder"  : "C:/Users/aydin/Documents/repos/Voyager-Field-Builder/",
-    "voyager_data"   : "C:/Users/aydin/Documents/repos/Voyager/tricedata/"
+    "voyager_data"   : "C:/Users/aydin/Documents/repos/Voyager/tricedata/",
+    "voyager"   : "C:/Users/aydin/Documents/repos/Voyager/"
 }
 
 def onerror(func, path, exc_info):
@@ -40,6 +42,12 @@ def copytree(src, dst, symlinks=False, ignore=None):
             shutil.copytree(s, d, symlinks, ignore)
         else:
             shutil.copy2(s, d)
+
+def pushgit(dir):
+    os.chdir(dir)
+    os.system("git add -A")
+    os.system("git commit -m " + datetime.today().strftime('%Y-%m-%d_%H:%M:%S'))
+    os.system("git push origin main")
 
 # region Trice
 
@@ -101,3 +109,14 @@ os.system("python scripts/build_site.py")
 print("------------------------------\n")
 
 print("Built Voyager!")
+
+#region Git
+
+print("Git stuff")
+print("------------------------------\n")
+
+date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+
+pushgit(path['field_builder'])
+pushgit(path["voyager"])
+pushgit(path["egg_hub"])
