@@ -2,36 +2,20 @@ from enum import Enum
 from datetime import datetime
 import os, sys, shutil
 
+format = "Voyager"
+
 path = {
-    "egg_hub_export" : "../Voyager-Indexes/egg-hub-exports/",
-    "trice_export"   : "../Voyager-Indexes/trice-exports/",
-    "egg_hub"        : "../Voyager-MTG.github.io",
-    "egg_hub_sets"   : "../Voyager-MTG.github.io/sets",
-    "trice_sets"     : "../Voyager-Field-Builder/sets/",
-    "trice_merged"   : "../Voyager-Field-Builder/export/",
-    "field_builder"  : "../Voyager-Field-Builder/",
-    "voyager_data"   : "../Voyager/tricedata/",
-    "voyager"        : "../Voyager/"
+    "egg_hub_export" : f"../{format}-Indexes/egg-hub-exports/",
+    "trice_export"   : f"../{format}-Indexes/trice-exports/",
+    "egg_hub"        : f"../{format}-MTG.github.io",
+    "egg_hub_sets"   : f"../{format}-MTG.github.io/sets",
+    "trice_sets"     : f"../{format}-Field-Builder/sets/",
+    "trice_merged"   : f"../{format}-Field-Builder/export/",
+    "field_builder"  : f"../{format}-Field-Builder/",
+    f"{format}_data" : f"../{format}/tricedata/",
+    f"{format}"      : f"../{format}/"
 }
 
-def onerror(func, path, exc_info):
-    """
-    Error handler for ``shutil.rmtree``.
-
-    If the error is due to an access error (read only file)
-    it attempts to add write permission and then retries.
-
-    If the error is for another reason it re-raises the error.
-    
-    Usage : ``shutil.rmtree(path, onerror=onerror)``
-    """
-    import stat
-    # Is the error an access error?
-    if not os.access(path, os.W_OK):
-        os.chmod(path, stat.S_IWUSR)
-        func(path)
-    else:
-        raise
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
@@ -69,16 +53,16 @@ os.chdir(path["field_builder"])
 os.system(f"python trice-merge/merge.py")
 print("------------------------------")
 
-print("Moving files to Voyager")
+print(f"Moving files to {format}")
 
 try:
-    shutil.rmtree(path["voyager_data"])
+    shutil.rmtree(path[f"{format}_data"])
 except Exception as e:
     print(e)
 
 
 try:
-    shutil.copytree(path["trice_merged"], path["voyager_data"])
+    shutil.copytree(path["trice_merged"], path[f"{format}_data"])
 except Exception as e:
     print(e)
 
@@ -108,15 +92,15 @@ os.chdir(path["egg_hub"])
 os.system("python scripts/build_site.py")
 print("------------------------------\n")
 
-print("Built Voyager!")
+print(f"Built {format}!")
 
 #region Git
 
-print("Git stuff")
+print("Pushing to git repos")
 print("------------------------------\n")
 
 date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
 pushgit(path['field_builder'])
-pushgit(path["voyager"])
+pushgit(path[f"{format}"]) # "{format}".format(format)
 pushgit(path["egg_hub"])
