@@ -2,18 +2,18 @@ from enum import Enum
 from datetime import datetime
 import os, sys, shutil
 
-format = "Voyager"
+format_ = "Voyager"
 
 path = {
-    "egg_hub_export" : f"../{format}-Indexes/egg-hub-exports/",
-    "trice_export"   : f"../{format}-Indexes/trice-exports/",
-    "egg_hub"        : f"../{format}-MTG.github.io",
-    "egg_hub_sets"   : f"../{format}-MTG.github.io/sets",
-    "trice_sets"     : f"../{format}-Field-Builder/sets/",
-    "trice_merged"   : f"../{format}-Field-Builder/export/",
-    "field_builder"  : f"../{format}-Field-Builder/",
-    f"{format}_data" : f"../{format}/tricedata/",
-    f"{format}"      : f"../{format}/"
+    "egg_hub_export"  : f"../{format_}-Indexes/1.exports/egg",
+    "trice_export"    : f"../{format_}-Indexes/1.exports/trice",
+    "egg_hub"         : f"../{format_}-MTG.github.io",
+    "egg_hub_sets"    : f"../{format_}-MTG.github.io/sets",
+    "trice_sets"      : f"../{format_}-Field-Builder/sets/",
+    "trice_merged"    : f"../{format_}-Field-Builder/export/",
+    "field_builder"   : f"../{format_}-Field-Builder/",
+    f"{format_}_data" : f"../{format_}/tricedata/",
+    f"{format_}"      : f"../{format_}/"
 }
 
 
@@ -53,16 +53,16 @@ os.chdir(path["field_builder"])
 os.system(f"python trice-merge/merge.py")
 print("------------------------------")
 
-print(f"Moving files to {format}")
+print(f"Moving files to {format_}")
 
 try:
-    shutil.rmtree(path[f"{format}_data"])
+    shutil.rmtree(path[f"{format_}_data"])
 except Exception as e:
     print(e)
 
 
 try:
-    shutil.copytree(path["trice_merged"], path[f"{format}_data"])
+    shutil.copytree(path["trice_merged"], path[f"{format_}_data"])
 except Exception as e:
     print(e)
 
@@ -92,7 +92,7 @@ os.chdir(path["egg_hub"])
 os.system("python scripts/build_site.py")
 print("------------------------------\n")
 
-print(f"Built {format}!")
+print(f"Built {format_}!")
 
 #region Git
 
@@ -102,5 +102,5 @@ print("------------------------------\n")
 date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
 pushgit(path['field_builder'])
-pushgit(path[f"{format}"]) # "{format}".format(format)
+pushgit(path[f"{format_}"]) # "{format_}".format_(format_)
 pushgit(path["egg_hub"])
