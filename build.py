@@ -7,13 +7,14 @@ format_ = "Voyager"
 path = {
     "egg_hub_export"  : f"../{format_}-Indexes/1.exports/egg",
     "trice_export"    : f"../{format_}-Indexes/1.exports/trice",
+    "indexes"         : f"../{format_}-Indexes/",
     "egg_hub"         : f"../{format_}-MTG.github.io",
     "egg_hub_sets"    : f"../{format_}-MTG.github.io/sets",
     "trice_sets"      : f"../{format_}-Field-Builder/sets/",
     "trice_merged"    : f"../{format_}-Field-Builder/export/",
     "field_builder"   : f"../{format_}-Field-Builder/",
-    f"{format_}_data" : f"../{format_}/tricedata/",
-    f"{format_}"      : f"../{format_}/"
+    "format_data"     : f"../{format_}/tricedata/",
+    "format"          : f"../{format_}/"
 }
 
 
@@ -32,6 +33,13 @@ def pushgit(dir):
     os.system("git add -A")
     os.system("git commit -m " + datetime.today().strftime('%Y-%m-%d_%H:%M:%S'))
     os.system("git push origin main")
+
+# region Export mse 
+
+print("EXPORTING FROM MSE")
+print("Running indexes export script\n------------------------------")
+os.chdir(path["indexes"])
+os.system("python")
 
 # region Trice
 
@@ -56,13 +64,13 @@ print("------------------------------")
 print(f"Moving files to {format_}")
 
 try:
-    shutil.rmtree(path[f"{format_}_data"])
+    shutil.rmtree(path["format_data"])
 except Exception as e:
     print(e)
 
 
 try:
-    shutil.copytree(path["trice_merged"], path[f"{format_}_data"])
+    shutil.copytree(path["trice_merged"], path["format_data"])
 except Exception as e:
     print(e)
 
@@ -102,5 +110,5 @@ print("------------------------------\n")
 date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
 pushgit(path['field_builder'])
-pushgit(path[f"{format_}"]) # "{format_}".format_(format_)
+pushgit(path["format"]) # "{format_}".format_(format_)
 pushgit(path["egg_hub"])
