@@ -109,6 +109,7 @@ print("------------------------------\n")
 
 date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
+pushgit(path["indexes"])
 pushgit(path['field_builder'])
 pushgit(path["format"]) # "{format_}".format_(format_)
 pushgit(path["egg_hub"])
