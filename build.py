@@ -39,7 +39,7 @@ def pushgit(dir):
 print("EXPORTING FROM MSE")
 print("Running indexes export script\n------------------------------")
 os.chdir(path["indexes"])
-os.system("python")
+os.system("python export.py")
 
 # region Trice
 
